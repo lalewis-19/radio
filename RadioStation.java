@@ -1,5 +1,3 @@
-
-
 public class RadioStation {
 
     private double freq;
@@ -11,6 +9,9 @@ public class RadioStation {
     private double haat; // antena height above average terrain
     private Position pos;
     private String company;
+
+    
+    private double signalStrength;
 
     public RadioStation(){}
 
