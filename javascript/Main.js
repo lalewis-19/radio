@@ -3,13 +3,17 @@
 
 
 class RadioStation {
-    constructor(){
-        this.freq = 94.5;
-        this.lon = 39.918162846609455;
-        this.lat = -75.16113325953484;
-        this.haat = 100; // antena height above average terrain
-        this.power = 10000;
+    constructor(freq = 94.5, lon = 39.918162846609455, lat = -75.16113325953484, haat = 100, power = 10000){
+        this.freq = freq;
+        this.lon = lon;
+        this.lat = lat;
+        this.haat = haat; // antena height above average terrain
+        this.power = power;
     }
+}
+
+function radioQuery(lon, lat, r){
+    
 }
 
 /**
