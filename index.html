@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Testing Page for Radio Station Finder</title>
+        <script src="Main.js"></script>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id= "main">
+            <div id="top" class="main-class">
+                <div id="coordinates">
+                    <input id="lon-num" type="number">
+                    <input id="lat-num" type="number">
+                </div>
+                <div id="refresh">
+                    <button type="button" onclick="refresh();">Refresh</button>
+                </div>
+            </div>
+            <div id="mid" class="main-class">
+                <div id="center">
+                    <div id="results">
+                        <h1 id="result-1">106.1</h1>
+                        <h4 id="result-runnerups">98.1 | 88.1 | 101.4 | 105.4</h4>
+                    </div>
+                </div>
+            </div>
+            <div id="bot" class="main-class">
+                <div id="updatetime">
+                    <div class="table-parent">
+                        <div class="table-child-bottom">
+                            <p id="updatetime-p">Last Updated 1/10/2019 1:38:39 PM</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="github">
+                    <div class="table-parent">
+                        <div class="table-child-bottom">
+                            <p><a href="https://github.com/lalewis-19/radio">Github</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--javascript after page is loaded-->
+        <script>
+            updateHTMLCoordinates();
+            refresh();
+        </script>
+    </body>
+</html>

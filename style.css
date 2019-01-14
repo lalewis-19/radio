@@ -1,0 +1,128 @@
+html {
+    height: 100%;
+}
+
+html *{
+    font-family: "Times New Roman", Times, serif;
+}
+
+body {
+    margin: 0px;
+    height: 94%;
+    padding: 2%;
+    background: #1a53ff;
+    color: #FFFFFF;
+}
+
+h1 {
+    font-size: 72px;
+    padding: 0px;
+    margin: 0px;
+}
+
+h4 {
+    font-size: 24px;
+    margin: 0px;
+}
+
+/*66a3ff*/
+
+#main {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-class {
+    margin: 0px;
+    width: 100%;
+    overflow: auto;
+}
+
+#top {
+    height: 10%;
+}
+
+#coordinates, #refresh{
+    display: inline-block;
+}
+
+#coordinates{
+    width: 35%;
+}
+
+#coordinates input[type="number"]{
+    border-radius: 5px;
+    font-style: italic;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 3px;
+    width: 40%;
+    margin-left: 1%;
+    margin-right: 1%;
+    background: #002699;
+    color: #FFFFFF;
+    border-color: #0033cc;
+}
+
+#refresh{
+    float: right;
+}
+
+#refresh button{
+    border-radius: 5px;
+    background: #002699;
+    color: #FFFFFF;
+    border-color: #0033cc;
+}
+
+#mid {
+    height: 80%;
+}
+
+#center {
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+
+#results {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+#bot {
+    height: 10%;
+}
+
+#github, #updatetime{
+    display: inline-block;
+    height: 93%;
+}
+
+#github {
+    float:right;
+}
+
+#github p{
+    margin: 0px;
+}
+
+#updatetime {
+    
+}
+
+#updatetime p{
+    margin: 0px;
+}
+
+.table-parent{
+    display: table;
+    height: 100%;
+}
+
+.table-child-bottom{
+    display: table-cell;
+    vertical-align: bottom;
+}
