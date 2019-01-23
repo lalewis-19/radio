@@ -1,9 +1,9 @@
 
 var deviceLon = 40.258060, deviceLat = -74.525917; // location of the device if they share their position with us.
-var defR = 80; // default radius km
+var defR = 120; // default radius km
 
 // use for comaprison
-// https://radio-locator.com
+// https://radio-locator.com/cgi-bin/vacant
 
 // http://cwestblog.com/2012/11/12/javascript-degree-and-radian-conversion/
 // Converts from degrees to radians
@@ -58,22 +58,38 @@ function getDeviceLocation() {
 function savePosition(position) {
     deviceLon = position.coords.latitude; 
     deviceLat = position.coords.longitude;
+    updateHTMLCoordinates();
+    refresh();
 }
 
 /**
  * refreshes the page with the coordinates on the page
  */
 function refresh(){
+    // make sure that the lon & lat values work
     var lon = document.getElementById("lon-num").value;
     var lat = document.getElementById("lat-num").value;
     if (isNaN(lon))
         lon = deviceLon;
     if (isNaN(lat))
         lat = deviceLat;
-    radioQuery(lon, lat, 80, function(data){
+    // send query
+    radioQuery(lon, lat, defR, function(data){
         var runnerUps = 4;
         data.sort(compareRadioStrength);
+        // remove duplicates
+        for (var q = 0; q < data.length; q++){
+            for (var i = 0; i < q; i++){
+                if (data[q].freq == data[i].freq){
+                    data.splice(q, 1);
+                    q--;
+                    break;
+                }
+            }
+        }
+        // add the main radio station
         document.getElementById("result-1").innerHTML = data[0].freq;
+        // do some of the runner ups
         var runnerUpsString = "";
         for (var q = 1; q < runnerUps+1; q++){
             if (q>=data.length)
@@ -84,20 +100,36 @@ function refresh(){
                 runnerUpsString+=" | "+data[q].freq;
         }
         document.getElementById("result-runnerups").innerHTML = runnerUpsString;
+        /* debugging
+        var endings = 3;
+        for (var q = 0; q < endings; q++){
+            console.log(data[q]);
+        }
+        for (var q = data.length-1; q > data.length-1-endings; q--){
+            console.log(data[q]);
+        }
+        */
     });
     refreshTimeStamp();
 }
 
 /**
- * compares radio stations based on signal strength.
+ * compares radio stations based on signal strength. Least first.
  * @param {RadioStation} a the first radio station.
  * @param {RadioStation} b the second radio stataion.
  */
 function compareRadioStrength(a, b){
+    // if equal send the stronger one further back
+    if (a.freq == b.freq){
+        if (a.strength > b.strength)
+            return -1;
+        else 
+            return 1;
+    }
     if (a.strength < b.strength)
-        return 1;
-    if (a.strength > b.strength)
         return -1;
+    if (a.strength > b.strength)
+        return 1;
     return 0;
 }
 
@@ -120,7 +152,7 @@ function refreshTimeStamp(){
 }
 
 /**
- * 
+ * loads the raw data from the fcc website fm radio query and turns it into json for the RadioStation class
  * @param {String} path path to the file with raw data from fcc query.
  */
 function loadRawRadioFile(path){
@@ -128,9 +160,9 @@ function loadRawRadioFile(path){
     // open request
     request.open("GET", path);
     // on status change
-    var radios = [];
     request.onreadystatechange = function(){
         if (request.readyState == XMLHttpRequest.DONE){
+            var radios = [];
             var data = request.responseText.split("|");
             var freq, lonD, lonM, lonS, latD, latM, latS, haat, power;
             for (var q = 0; q < data.length; q++){
